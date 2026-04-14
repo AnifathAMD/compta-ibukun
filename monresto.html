@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#D85A30">
+<title>Mon Resto – Porto-Novo</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
+:root{--or:#D85A30;--orl:#FAECE7;--gr:#3B6D11;--grl:#EAF3DE;--re:#A32D2D;--rel:#FCEBEB;--am:#BA7517;--aml:#FAEEDA;--bg:#fff;--bg2:#f5f0ec;--bd:#e0d5c8;--tx:#1a1008;--tx2:#7a5c40}
+#app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg2);position:relative}
+.scr{display:none;flex-direction:column;height:100vh;overflow:hidden}
+.scr.on{display:flex}
+.sb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px;display:flex;flex-direction:column;gap:10px;padding-bottom:88px}
+.top{background:var(--or);padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 2px 8px rgba(216,90,48,.3)}
+.top-t{color:#fff;font-size:17px;font-weight:800}
+.top-s{color:rgba(255,255,255,.8);font-size:11px;margin-top:1px}
+.top-btn{background:rgba(255,255,255,.2);border:none;color:#fff;padding:7px 13px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer}
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:16px;padding:14px;flex-shrink:0}
+.ct{font-size:11px;color:var(--tx2);font-weight:700;text-transform:uppercase;letter-spacing:.9px;margin-bottom:12px}
+.bmain{background:var(--or);border:none;color:#fff;padding:15px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;width:100%;box-shadow:0 3px 10px rgba(216,90,48,.3)}
+.bmain:active{transform:scale(.98)}
+.bsec{background:var(--bg);border:2px solid var(--or);color:var(--or);padding:12px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.bico{background:var(--bg2);border:1.5px solid var(--bd);border-radius:12px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--tx);-webkit-user-select:none;user-select:none}
+.bico:active{background:var(--or);color:#fff;border-color:var(--or);transform:scale(.95)}
+.bico .ic{font-size:24px;line-height:1}
+.bico .lb{font-size:10px;font-weight:700;text-align:center;line-height:1.2}
+.bico .pr{font-size:10px;color:var(--or);font-weight:700}
+.bico:active .pr{color:rgba(255,255,255,.85)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sc{background:var(--bg2);border-radius:12px;padding:10px 6px;text-align:center}
+.sn{font-size:17px;font-weight:800;color:var(--tx)}
+.sl{font-size:9px;color:var(--tx2);margin-top:3px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.sc.gr .sn{color:var(--gr)}.sc.re .sn{color:var(--re)}.sc.am .sn{color:var(--am)}
+.orow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd)}
+.orow:last-child{border-bottom:none}
+.bdg{display:inline-block;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700;white-space:nowrap}
+.bdg.paid{background:var(--grl);color:var(--gr)}
+.bdg.open{background:var(--rel);color:var(--re)}
+.bdg.momo{background:var(--aml);color:var(--am)}
+.bdg.cashb{background:var(--bg2);color:var(--tx2)}
+.qrow{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd)}
+.qrow:last-child{border-bottom:none}
+.qc{display:flex;align-items:center;gap:10px}
+.qb{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--bd);background:var(--bg2);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--tx);font-weight:700}
+.qb:active{background:var(--or);color:#fff;border-color:var(--or)}
+.nav{display:flex;background:var(--bg);border-top:1px solid var(--bd);flex-shrink:0;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:20;box-shadow:0 -2px 10px rgba(0,0,0,.06)}
+.nb{flex:1;padding:10px 4px 8px;border:none;background:transparent;color:var(--tx2);font-size:9px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;text-transform:uppercase;letter-spacing:.5px}
+.nb .ni{font-size:20px;line-height:1}
+.nb.on{color:var(--or)}
+.pdot{width:14px;height:14px;border-radius:50%;border:2px solid var(--or);background:transparent;display:inline-block;transition:background .15s}
+.pdot.f{background:var(--or)}
+.ppad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:0 auto}
+.pk{background:var(--bg);border:1px solid var(--bd);border-radius:16px;padding:18px;font-size:24px;font-weight:700;cursor:pointer;color:var(--tx);text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.pk:active{background:var(--or);color:#fff;border-color:var(--or)}
+.tb{flex:1;padding:11px;border-radius:12px;border:1.5px solid var(--bd);background:var(--bg2);cursor:pointer;font-size:13px;color:var(--tx2);font-weight:700;text-align:center}
+.tb.on{background:var(--or);color:#fff;border-color:var(--or)}
+.tbar{background:var(--or);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.tbar span{color:rgba(255,255,255,.85);font-size:13px;font-weight:700}
+.tbar strong{color:#fff;font-size:22px;font-weight:800}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--gr);color:#fff;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;white-space:nowrap;z-index:999;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.err{background:var(--re)}.toast.on{opacity:1}
+.mwrap{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:100}
+.mwrap.on{display:flex}
+.modal{background:var(--bg);border-radius:24px 24px 0 0;padding:24px 20px 36px;width:100%;max-width:430px;max-height:90vh;overflow-y:auto}
+.mt{font-size:16px;font-weight:800;color:var(--tx);margin-bottom:16px}
+.div{height:1px;background:var(--bd);margin:10px 0}
+.inp{background:var(--bg2);border:1px solid var(--bd);color:var(--tx);padding:12px 14px;border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Nunito',sans-serif;-webkit-appearance:none}
+.inp:focus{border-color:var(--or)}
+.ilbl{font-size:11px;color:var(--tx2);font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;display:block}
+.spin{width:20px;height:20px;border:2px solid var(--bd);border-top-color:var(--or);border-radius:50%;animation:sp .7s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sep{font-size:10px;color:var(--tx2);text-transform:uppercase;letter-spacing:.8px;padding:6px 0 4px;font-weight:700}
+.tabtow{display:flex;border-radius:12px;overflow:hidden;border:1px solid var(--bd);flex-shrink:0}
+.tabb{flex:1;padding:10px;border:none;background:var(--bg2);cursor:pointer;font-size:12px;font-weight:700;color:var(--tx2)}
+.tabb.on{background:var(--or);color:#fff}
+.orcard{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:13px;margin-bottom:8px}
+.orcard.oc{border-left:3px solid var(--re)}
+.orcard.pc{border-left:3px solid var(--gr)}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- LOGIN -->
+<div id="s-login" class="scr on" style="justify-content:center;align-items:center;padding:32px;background:linear-gradient(160deg,#fff5f0,#f5f0ec)">
+  <div style="text-align:center;margin-bottom:32px">
+    <div style="font-size:56px;margin-bottom:10px">🍽️</div>
+    <div style="font-size:24px;font-weight:800;color:var(--tx)">Mon Resto</div>
+    <div style="font-size:13px;color:var(--tx2);margin-top:4px">Porto-Novo · Gestion des commandes</div>
+  </div>
+  <div style="display:flex;gap:14px;margin-bottom:24px;justify-content:center">
+    <span class="pdot" id="d0"></span><span class="pdot" id="d1"></span><span class="pdot" id="d2"></span><span class="pdot" id="d3"></span>
+  </div>
+  <div id="perr" style="color:var(--re);font-size:13px;text-align:center;margin-bottom:14px;min-height:18px;font-weight:700"></div>
+  <div class="ppad">
+    <button class="pk" onclick="pp('1')">1</button><button class="pk" onclick="pp('2')">2</button><button class="pk" onclick="pp('3')">3</button>
+    <button class="pk" onclick="pp('4')">4</button><button class="pk" onclick="pp('5')">5</button><button class="pk" onclick="pp('6')">6</button>
+    <button class="pk" onclick="pp('7')">7</button><button class="pk" onclick="pp('8')">8</button><button class="pk" onclick="pp('9')">9</button>
+    <button class="pk" onclick="pp('d')" style="font-size:18px">⌫</button>
+    <button class="pk" onclick="pp('0')">0</button>
+    <button class="pk" onclick="pp('ok')" style="background:var(--or);color:#fff;border-color:var(--or);font-size:15px">OK</button>
+  </div>
+  <div style="margin-top:22px;font-size:11px;color:#ccc;text-align:center">Patron : 1234 &nbsp;·&nbsp; Serveur : 0000</div>
+</div>
+
+<!-- HOME -->
+<div id="s-home" class="scr">
+  <div class="top"><div><div class="top-t" id="ht">Accueil</div><div class="top-s" id="hs"></div></div><button class="top-btn" onclick="logout()">Quitter</button></div>
+  <div class="sb">
+    <div class="card">
+      <div class="ct" id="tdlbl"></div>
+      <div class="sg">
+        <div class="sc"><div class="sn" id="sv">—</div><div class="sl">Vendu (F)</div></div>
+        <div class="sc gr"><div class="sn" id="se">—</div><div class="sl">Encaissé</div></div>
+        <div class="sc re"><div class="sn" id="sr">—</div><div class="sl">Restant</div></div>
+      </div>
+      <div id="scnt" style="font-size:11px;color:var(--tx2);text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);font-weight:700"></div>
+    </div>
+    <button class="bmain" onclick="goCmd()">＋ Nouvelle commande</button>
+    <div id="pbts" style="display:none;flex-direction:column;gap:8px">
+      <button class="bsec" onclick="go('s-orders')">📋 Toutes les commandes du jour</button>
+      <button class="bsec" onclick="go('s-bilan')">📊 Bilan (jour / semaine / mois)</button>
+      <button class="bsec" onclick="openDel()">🛵 Ajouter une livraison</button>
+    </div>
+    <div id="pendwrap" style="display:none">
+      <div class="card">
+        <div class="ct" style="color:var(--re)">⚠️ Tables en attente de paiement</div>
+        <div id="pendlist"></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav" id="hnav"></div>
+</div>
+
+<!-- COMMANDE -->
+<div id="s-cmd" class="scr">
+  <div class="top"><div><div class="top-t">Nouvelle commande</div></div><button class="top-btn" onclick="go('s-home')">← Retour</button></div>
+  <div class="sb">
+    <div class="card">
+      <div class="ct">Qui prend la commande ?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><label class="ilbl">Ton nom</label><input class="inp" id="isrv" placeholder="Ex: Fatou"></div>
+        <div><label class="ilbl">Table / Client</label><input class="inp" id="itbl" placeholder="Ex: T2"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🍚 Igname pilée</div>
+      <div class="g3" style="margin-bottom:8px">
+        <button class="bico" onclick="add('ign500','Igname pilée','🍚',500)"><span class="ic">🍚</span><span class="lb">1 boule</span><span class="pr">500 F</span></button>
+        <button class="bico" onclick="add('ign1000','Igname pilée','🍚',1000)"><span class="ic">🍚</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
+        <button class="bico" onclick="add('ign1500','Igname pilée','🍚',1500)"><span class="ic">🍚</span><span class="lb">Plat 1500</span><span class="pr">1 500 F</span></button>
+      </div>
+      <div class="g2">
+        <button class="bico" onclick="add('ign2000','Igname pilée','🍚',2000)"><span class="ic">🍚</span><span class="lb">Plat 2000</span><span class="pr">2 000 F</span></button>
+        <button class="bico" onclick="add('ignx','Igname extra','🍚',200)"><span class="ic">🍚</span><span class="lb">Extra boule</span><span class="pr">200 F</span></button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🫕 Pâte noire</div>
+      <div class="g3">
+        <button class="bico" onclick="add('pat200','Pâte noire','🫕',200)"><span class="ic">🫕</span><span class="lb">1 boule</span><span class="pr">200 F</span></button>
+        <button class="bico" onclick="add('pat1000','Pâte noire','🫕',1000)"><span class="ic">🫕</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
+        <button class="bico" onclick="add('patx','Pâte extra','🫕',200)"><span class="ic">🫕</span><span class="lb">Extra boule</span><span class="pr">200 F</span></button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🥩 Accompagnements</div>
+      <div class="g2">
+        <button class="bico" onclick="add('viande','Viande','🥩',300)"><span class="ic">🥩</span><span class="lb">Viande</span><span class="pr">300 F</span></button>
+        <button class="bico" onclick="add('fromage','Fromage','🧀',100)"><span class="ic">🧀</span><span class="lb">Fromage</span><span class="pr">100 F</span></button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🍺 Bières</div>
+      <div class="g3">
+        <button class="bico" onclick="add('bi600','Bière','🍺',600)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">600 F</span></button>
+        <button class="bico" onclick="add('bi700','Bière','🍺',700)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">700 F</span></button>
+        <button class="bico" onclick="add('bi900','Bière','🍺',900)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">900 F</span></button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🥤 Boissons</div>
+      <div class="sep">Sucreries</div>
+      <div class="g2" style="margin-bottom:8px">
+        <button class="bico" onclick="add('suc300','Sucrerie','🥤',300)"><span class="ic">🥤</span><span class="lb">Sucrerie</span><span class="pr">300 F</span></button>
+        <button class="bico" onclick="add('suc500','Sucrerie','🥤',500)"><span class="ic">🥤</span><span class="lb">Sucrerie</span><span class="pr">500 F</span></button>
+      </div>
+      <div class="sep">Eau</div>
+      <div class="g2" style="margin-bottom:8px">
+        <button class="bico" onclick="add('eau500','Eau','💧',500)"><span class="ic">💧</span><span class="lb">Eau</span><span class="pr">500 F</span></button>
+        <button class="bico" onclick="add('eau600','Eau','💧',600)"><span class="ic">💧</span><span class="lb">Eau</span><span class="pr">600 F</span></button>
+      </div>
+      <div class="sep">Jus naturels</div>
+      <div class="g2">
+        <button class="bico" onclick="add('jus500','Jus naturel','🍹',500)"><span class="ic">🍹</span><span class="lb">Jus naturel</span><span class="pr">500 F</span></button>
+        <button class="bico" onclick="add('jus600','Jus naturel','🍹',600)"><span class="ic">🍹</span><span class="lb">Jus naturel</span><span class="pr">600 F</span></button>
+      </div>
+    </div>
+    <div class="card" id="cartcard" style="display:none">
+      <div class="ct">🛒 Commande en cours</div>
+      <div id="cartlist"></div>
+      <div class="div"></div>
+      <div class="tbar" style="margin-top:10px"><span>Total</span><strong id="carttot">0 F</strong></div>
+      <div style="margin-top:14px">
+        <div class="ct">Mode de paiement prévu</div>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button class="tb on" id="pcash" onclick="setPM('cash')">💵 Cash</button>
+          <button class="tb" id="pmomo" onclick="setPM('momo')">📱 Mobile Money</button>
+        </div>
+      </div>
+      <div style="background:var(--aml);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--am);font-weight:700">
+        ℹ️ La commande sera enregistrée comme <strong>non payée</strong>. Tu confirmes le paiement depuis la liste des commandes quand le client paie.
+      </div>
+      <button class="bmain" id="bsubmit" onclick="submitOrder()">✓ Enregistrer la commande</button>
+    </div>
+    <div style="height:10px"></div>
+  </div>
+</div>
+
+<!-- ORDERS -->
+<div id="s-orders" class="scr">
+  <div class="top"><div><div class="top-t">Commandes du jour</div></div><button class="top-btn" onclick="go('s-home')">← Retour</button></div>
+  <div class="sb" id="orderbody"><div style="text-align:center;padding:30px"><div class="spin"></div></div></div>
+</div>
+
+<!-- BILAN -->
+<div id="s-bilan" class="scr">
+  <div class="top"><div><div class="top-t">Bilan</div></div><button class="top-btn" onclick="go('s-home')">← Retour</button></div>
+  <div style="padding:12px 12px 0;flex-shrink:0">
+    <div class="tabtow">
+      <button class="tabb on" id="bt-day" onclick="setBP('day')">Aujourd'hui</button>
+      <button class="tabb" id="bt-week" onclick="setBP('week')">7 derniers jours</button>
+      <button class="tabb" id="bt-month" onclick="setBP('month')">30 derniers jours</button>
+    </div>
+  </div>
+  <div class="sb" id="bilanbody" style="padding-top:10px"><div style="text-align:center;padding:30px"><div class="spin"></div></div></div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="mwrap" id="editmodal">
+  <div class="modal">
+    <div class="mt">✏️ Modifier la commande</div>
+    <div id="editinfo" style="font-size:12px;color:var(--tx2);margin-bottom:12px;font-weight:700"></div>
+    <div class="ct">Articles actuels</div>
+    <div id="editcartlist"></div>
+    <div class="div"></div>
+    <div class="ct" style="margin-top:4px">Ajouter un article</div>
+    <div class="g3" style="margin-bottom:8px">
+      <button class="bico" onclick="eadd('ign500','Igname pilée','🍚',500)"><span class="ic">🍚</span><span class="lb">Boule</span><span class="pr">500 F</span></button>
+      <button class="bico" onclick="eadd('ign1000','Igname pilée','🍚',1000)"><span class="ic">🍚</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
+      <button class="bico" onclick="eadd('ignx','Igname extra','🍚',200)"><span class="ic">🍚</span><span class="lb">Extra</span><span class="pr">200 F</span></button>
+    </div>
+    <div class="g3" style="margin-bottom:8px">
+      <button class="bico" onclick="eadd('pat200','Pâte noire','🫕',200)"><span class="ic">🫕</span><span class="lb">Boule</span><span class="pr">200 F</span></button>
+      <button class="bico" onclick="eadd('pat1000','Pâte noire','🫕',1000)"><span class="ic">🫕</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
+      <button class="bico" onclick="eadd('patx','Pâte extra','🫕',200)"><span class="ic">🫕</span><span class="lb">Extra</span><span class="pr">200 F</span></button>
+    </div>
+    <div class="g3" style="margin-bottom:8px">
+      <button class="bico" onclick="eadd('viande','Viande','🥩',300)"><span class="ic">🥩</span><span class="lb">Viande</span><span class="pr">300 F</span></button>
+      <button class="bico" onclick="eadd('fromage','Fromage','🧀',100)"><span class="ic">🧀</span><span class="lb">Fromage</span><span class="pr">100 F</span></button>
+      <button class="bico" onclick="eadd('bi600','Bière','🍺',600)"><span class="ic">🍺</span><span class="lb">Bière 600</span><span class="pr">600 F</span></button>
+    </div>
+    <div class="g3" style="margin-bottom:14px">
+      <button class="bico" onclick="eadd('bi700','Bière','🍺',700)"><span class="ic">🍺</span><span class="lb">Bière 700</span><span class="pr">700 F</span></button>
+      <button class="bico" onclick="eadd('bi900','Bière','🍺',900)"><span class="ic">🍺</span><span class="lb">Bière 900</span><span class="pr">900 F</span></button>
+      <button class="bico" onclick="eadd('suc300','Sucrerie','🥤',300)"><span class="ic">🥤</span><span class="lb">Sucr. 300</span><span class="pr">300 F</span></button>
+    </div>
+    <div class="tbar" style="margin-bottom:14px"><span>Nouveau total</span><strong id="edittot">0 F</strong></div>
+    <div style="display:flex;gap:10px">
+      <button class="bsec" style="flex:1" onclick="closeEdit()">Annuler</button>
+      <button class="bmain" style="flex:1" onclick="saveEdit()">Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERY MODAL -->
+<div class="mwrap" id="delmodal">
+  <div class="modal">
+    <div class="mt">🛵 Ajouter une livraison</div>
+    <label class="ilbl">Description</label>
+    <input class="inp" id="deldesc" placeholder="Ex: 2 ignames + viande" style="margin-bottom:12px">
+    <label class="ilbl">Montant (F)</label>
+    <input class="inp" id="delamount" placeholder="Ex: 3500" inputmode="numeric" style="margin-bottom:14px">
+    <div class="ct">Mode de paiement</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="tb on" id="dlcash" onclick="setDM('cash')">💵 Cash</button>
+      <button class="tb" id="dlmomo" onclick="setDM('momo')">📱 Mobile Money</button>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="bsec" style="flex:1" onclick="closeDel()">Annuler</button>
+      <button class="bmain" style="flex:1" onclick="submitDel()">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const SB='https://wmhtdufqgebraftkxgqs.supabase.co';
+const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtaHRkdWZxZ2VicmFmdGt4Z3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ1ODMsImV4cCI6MjA5MTMwMDU4M30.jWzKbRgBnGOIS6AKvnHIAkNOL4OsjInumSFhbLqjMCQ';
+const PP='1234',PS='0000';
+let role=null,pbuf='',cart=[],payMode='cash',delMode='cash';
+let tOrd=[],tDel=[],allOrd=[],allDel=[];
+let editId=null,editCart=[],bPeriod='day';
+
+function td(){return new Date().toLocaleDateString('fr-FR')}
+function tn(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
+function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
+
+async function sb(path,o={}){
+  const r=await fetch(SB+'/rest/v1/'+path,{
+    headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':o.prefer||'return=representation'},
+    method:o.method||'GET',body:o.body?JSON.stringify(o.body):undefined
+  });
+  if(!r.ok)throw new Error(await r.text());
+  const t=await r.text();return t?JSON.parse(t):[];
+}
+
+function datesFor(p){
+  const now=new Date(),d=[];
+  const n=p==='day'?1:p==='week'?7:30;
+  for(let i=0;i<n;i++){const x=new Date(now);x.setDate(x.getDate()-i);d.push(x.toLocaleDateString('fr-FR'));}
+  return d;
+}
+
+async function loadToday(){
+  const t=td();
+  try{
+    tOrd=await sb(`orders?order_date=eq.${encodeURIComponent(t)}&order=created_at.desc`);
+    tDel=await sb(`deliveries?delivery_date=eq.${encodeURIComponent(t)}&order=created_at.desc`);
+  }catch(e){tOrd=[];tDel=[];toast('Erreur réseau — vérifies ta connexion',true)}
+}
+
+async function loadPeriod(p){
+  const dates=datesFor(p);
+  const oQ=dates.map(d=>'order_date=eq.'+encodeURIComponent(d)).join(',');
+  const dQ=dates.map(d=>'delivery_date=eq.'+encodeURIComponent(d)).join(',');
+  try{
+    allOrd=await sb(`orders?or=(${oQ})&order=created_at.desc`);
+    allDel=await sb(`deliveries?or=(${dQ})&order=created_at.desc`);
+  }catch(e){allOrd=[];allDel=[];toast('Erreur réseau',true)}
+}
+
+// PIN
+function pp(k){
+  if(k==='d'){pbuf=pbuf.slice(0,-1)}
+  else if(k==='ok'){ckPin();return}
+  else if(pbuf.length<4){pbuf+=k}
+  udots();
+  if(pbuf.length===4)setTimeout(ckPin,120);
+}
+function udots(){for(let i=0;i<4;i++)document.getElementById('d'+i).classList.toggle('f',i<pbuf.length)}
+function ckPin(){
+  if(pbuf===PP){role='patron';pbuf='';udots();go('s-home')}
+  else if(pbuf===PS){role='serveur';pbuf='';udots();go('s-home')}
+  else{document.getElementById('perr').textContent='Code incorrect';pbuf='';udots();setTimeout(()=>{document.getElementById('perr').textContent=''},1500)}
+}
+function logout(){role=null;pbuf='';udots();cart=[];document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById('s-login').classList.add('on')}
+
+async function go(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(id==='s-home'){await loadToday();refHome()}
+  if(id==='s-orders'){await loadToday();renderOrders()}
+  if(id==='s-bilan'){bPeriod='day';['day','week','month'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x==='day'));await loadPeriod('day');renderBilan()}
+}
+function goCmd(){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById('s-cmd').classList.add('on')}
+
+function refHome(){
+  document.getElementById('tdlbl').textContent='📅 '+td();
+  document.getElementById('ht').textContent=role==='patron'?'Tableau de bord':'Accueil';
+  document.getElementById('hs').textContent=role==='patron'?'👑 Patron':'🧑‍🍳 Serveur';
+  document.getElementById('pbts').style.display=role==='patron'?'flex':'none';
+  const v=tOrd.reduce((s,o)=>s+o.total,0);
+  const e=tOrd.filter(o=>o.paid).reduce((s,o)=>s+o.total,0);
+  const dt=tDel.reduce((s,d)=>s+d.amount,0);
+  document.getElementById('sv').textContent=fmt(v+dt);
+  document.getElementById('se').textContent=fmt(e+dt);
+  document.getElementById('sr').textContent=fmt(v-e);
+  document.getElementById('scnt').textContent=tOrd.length+' cmd · '+tOrd.filter(o=>o.paid).length+' payée(s) · '+tOrd.filter(o=>!o.paid).length+' en attente';
+  const pend=tOrd.filter(o=>!o.paid);
+  const pw=document.getElementById('pendwrap');
+  if(pend.length){
+    pw.style.display='block';
+    document.getElementById('pendlist').innerHTML=pend.map(o=>`
+      <div class="orow">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--tx)">Table ${o.table_num||'—'} · ${o.server}</div>
+          <div style="font-size:11px;color:var(--tx2);margin-top:2px">${(o.items||[]).map(i=>i.ic+' '+i.name+' ×'+i.qty).join(' · ')}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:14px;font-weight:800;color:var(--or)">${fmt(o.total)} F</span>
+          ${role==='patron'?`<button class="bdg paid" style="cursor:pointer;border:none;padding:6px 12px" onclick="markPaid(${o.id})">✓ Payé</button>`:''}
+        </div>
+      </div>`).join('');
+  }else{pw.style.display='none'}
+  document.getElementById('hnav').innerHTML=`
+    <button class="nb on" onclick="go('s-home')"><span class="ni">🏠</span>Accueil</button>
+    <button class="nb" onclick="goCmd()"><span class="ni">➕</span>Commande</button>
+    ${role==='patron'?`<button class="nb" onclick="go('s-orders')"><span class="ni">📋</span>Commandes</button><button class="nb" onclick="go('s-bilan')"><span class="ni">📊</span>Bilan</button>`:''}`;
+}
+
+// CART
+function add(id,name,ic,price){const ex=cart.find(c=>c.id===id);ex?ex.qty++:cart.push({id,name,ic,price,qty:1});rCart()}
+function chg(id,d){const ex=cart.find(c=>c.id===id);if(ex){ex.qty+=d;if(ex.qty<=0)cart=cart.filter(c=>c.id!==id)}rCart()}
+function rCart(){
+  const tot=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const cc=document.getElementById('cartcard');
+  if(!cart.length){cc.style.display='none';return}
+  cc.style.display='block';
+  document.getElementById('carttot').textContent=fmt(tot)+' F';
+  document.getElementById('cartlist').innerHTML=cart.map(c=>`
+    <div class="qrow">
+      <div style="font-size:13px;font-weight:700;color:var(--tx)">${c.ic} ${c.name} <span style="color:var(--or)">${fmt(c.price)} F</span></div>
+      <div class="qc">
+        <button class="qb" onclick="chg('${c.id}',-1)">−</button>
+        <span style="font-size:15px;font-weight:800;min-width:22px;text-align:center">${c.qty}</span>
+        <button class="qb" onclick="chg('${c.id}',1)">＋</button>
+      </div>
+    </div>`).join('');
+}
+function setPM(m){payMode=m;document.getElementById('pcash').classList.toggle('on',m==='cash');document.getElementById('pmomo').classList.toggle('on',m==='momo')}
+
+async function submitOrder(){
+  const srv=document.getElementById('isrv').value.trim();
+  const tbl=document.getElementById('itbl').value.trim();
+  if(!srv){toast('Entre ton nom !',true);return}
+  if(!cart.length){toast('Aucun plat sélectionné',true);return}
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const o={id:Date.now(),server:srv,table_num:tbl||'—',items:cart.map(c=>({...c})),total,pay_mode:payMode,paid:false,order_date:td(),order_time:tn()};
+  const btn=document.getElementById('bsubmit');
+  btn.textContent='⏳ Envoi...';btn.disabled=true;
+  try{
+    await sb('orders',{method:'POST',body:o,prefer:'return=minimal'});
+    cart=[];payMode='cash';document.getElementById('itbl').value='';
+    setPM('cash');rCart();toast('Commande enregistrée ✓');go('s-home');
+  }catch(e){toast('Erreur : '+e.message,true)}
+  finally{btn.textContent='✓ Enregistrer la commande';btn.disabled=false}
+}
+
+async function markPaid(id){
+  try{
+    await sb(`orders?id=eq.${id}`,{method:'PATCH',body:{paid:true},prefer:'return=minimal'});
+    toast('Paiement confirmé ✓');await loadToday();refHome();
+    if(document.getElementById('s-orders').classList.contains('on'))renderOrders();
+  }catch(e){toast('Erreur',true)}
+}
+
+function renderOrders(){
+  const el=document.getElementById('orderbody');
+  if(!tOrd.length){el.innerHTML='<div class="card" style="text-align:center;padding:24px;color:var(--tx2);font-weight:700">Aucune commande aujourd\'hui</div>';return}
+  el.innerHTML=tOrd.map(o=>`
+    <div class="orcard ${o.paid?'pc':'oc'}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div>
+          <span style="font-size:14px;font-weight:800;color:var(--tx)">Table ${o.table_num}</span>
+          <span style="font-size:11px;color:var(--tx2);margin-left:8px;font-weight:700">${o.server} · ${o.order_time}</span>
+        </div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">
+          <span class="bdg ${o.paid?'paid':'open'}">${o.paid?'✓ Payé':'En attente'}</span>
+          <span class="bdg ${o.pay_mode==='momo'?'momo':'cashb'}">${o.pay_mode==='momo'?'📱 MoMo':'💵 Cash'}</span>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:8px;font-weight:700">${(o.items||[]).map(i=>i.ic+' '+i.name+' ×'+i.qty).join('  ·  ')}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:17px;font-weight:800;color:var(--or)">${fmt(o.total)} F</span>
+        <div style="display:flex;gap:6px">
+          <button class="bdg cashb" style="cursor:pointer;border:none;padding:6px 12px;font-size:11px" onclick="openEdit(${o.id})">✏️ Modifier</button>
+          ${role==='patron'&&!o.paid?`<button class="bdg paid" style="cursor:pointer;border:none;padding:6px 14px;font-size:11px" onclick="mpR(${o.id})">✓ Payé</button>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+async function mpR(id){await markPaid(id);renderOrders()}
+
+// EDIT
+function openEdit(id){
+  const o=tOrd.find(x=>x.id===id);if(!o)return;
+  editId=id;editCart=(o.items||[]).map(i=>({...i}));
+  document.getElementById('editinfo').textContent='Table '+o.table_num+' · '+o.server+' · '+o.order_time;
+  rEditCart();document.getElementById('editmodal').classList.add('on');
+}
+function closeEdit(){document.getElementById('editmodal').classList.remove('on');editId=null;editCart=[]}
+function eadd(id,name,ic,price){const ex=editCart.find(c=>c.id===id);ex?ex.qty++:editCart.push({id,name,ic,price,qty:1});rEditCart()}
+function echg(id,d){const ex=editCart.find(c=>c.id===id);if(ex){ex.qty+=d;if(ex.qty<=0)editCart=editCart.filter(c=>c.id!==id)}rEditCart()}
+function rEditCart(){
+  const tot=editCart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('edittot').textContent=fmt(tot)+' F';
+  document.getElementById('editcartlist').innerHTML=!editCart.length
+    ?'<div style="color:var(--tx2);font-size:13px;padding:8px 0;font-weight:700">Panier vide</div>'
+    :editCart.map(c=>`
+      <div class="qrow">
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">${c.ic} ${c.name} <span style="color:var(--or)">${fmt(c.price)} F</span></div>
+        <div class="qc">
+          <button class="qb" onclick="echg('${c.id}',-1)">−</button>
+          <span style="font-size:15px;font-weight:800;min-width:22px;text-align:center">${c.qty}</span>
+          <button class="qb" onclick="echg('${c.id}',1)">＋</button>
+        </div>
+      </div>`).join('');
+}
+async function saveEdit(){
+  if(!editId)return;
+  const total=editCart.reduce((s,c)=>s+c.price*c.qty,0);
+  try{
+    await sb(`orders?id=eq.${editId}`,{method:'PATCH',body:{items:editCart,total},prefer:'return=minimal'});
+    toast('Commande mise à jour ✓');closeEdit();await loadToday();renderOrders();
+  }catch(e){toast('Erreur',true)}
+}
+
+// BILAN
+async function setBP(p){
+  bPeriod=p;['day','week','month'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x===p));
+  document.getElementById('bilanbody').innerHTML='<div style="text-align:center;padding:30px"><div class="spin"></div></div>';
+  await loadPeriod(p);renderBilan();
+}
+function renderBilan(){
+  const v=allOrd.reduce((s,o)=>s+o.total,0);
+  const e=allOrd.filter(o=>o.paid).reduce((s,o)=>s+o.total,0);
+  const ce=allOrd.filter(o=>o.paid&&o.pay_mode==='cash').reduce((s,o)=>s+o.total,0);
+  const me=allOrd.filter(o=>o.paid&&o.pay_mode==='momo').reduce((s,o)=>s+o.total,0);
+  const dt=allDel.reduce((s,d)=>s+d.amount,0);
+  const dc=allDel.filter(d=>d.mode==='cash').reduce((s,d)=>s+d.amount,0);
+  const dm=allDel.filter(d=>d.mode==='momo').reduce((s,d)=>s+d.amount,0);
+  const srvs=[...new Set(allOrd.map(o=>o.server))];
+  const lbl=bPeriod==='day'?'aujourd\'hui':bPeriod==='week'?'ces 7 derniers jours':'ces 30 derniers jours';
+
+  const delH=allDel.length?`<div class="card">
+    <div class="ct">🛵 Livraisons</div>
+    ${allDel.map(d=>`<div class="orow"><div style="font-size:13px;font-weight:700;color:var(--tx)">${d.description||'Livraison'} <span style="font-size:10px;color:var(--tx2)">${d.delivery_date}</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><span class="bdg ${d.mode==='momo'?'momo':'cashb'}">${d.mode==='momo'?'📱':'💵'}</span>
+    <span style="font-size:13px;font-weight:800;color:var(--or)">${fmt(d.amount)} F</span></div></div>`).join('')}
+    <div class="div"></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding-top:4px"><span>Total livraisons</span><span style="color:var(--or)">${fmt(dt)} F</span></div>
+  </div>`:'';
+
+  const srvH=!srvs.length?`<div style="font-size:13px;color:var(--tx2);text-align:center;padding:12px;font-weight:700">Aucune commande</div>`:
+    srvs.map(srv=>{
+      const so=allOrd.filter(o=>o.server===srv);
+      const st=so.reduce((s,o)=>s+o.total,0);
+      const sp=so.filter(o=>o.paid).reduce((s,o)=>s+o.total,0);
+      const mq=st-sp;
+      return `<div class="orow"><div>
+        <div style="font-size:13px;font-weight:800;color:var(--tx)">${srv}</div>
+        <div style="font-size:11px;color:var(--tx2);margin-top:2px;font-weight:700">${so.length} cmd · Encaissé: ${fmt(sp)} F ${mq>0?`<span style="color:var(--re)">· Manquant: ${fmt(mq)} F</span>`:'<span style="color:var(--gr)">· ✓ OK</span>'}</div>
+      </div><span style="font-size:15px;font-weight:800;color:var(--or)">${fmt(st)} F</span></div>`;
+    }).join('');
+
+  document.getElementById('bilanbody').innerHTML=`
+    <div class="card">
+      <div class="ct">💰 Résultats ${lbl}</div>
+      <div class="sg">
+        <div class="sc"><div class="sn">${fmt(v+dt)}</div><div class="sl">Total vendu</div></div>
+        <div class="sc gr"><div class="sn">${fmt(e+dt)}</div><div class="sl">Encaissé</div></div>
+        <div class="sc re"><div class="sn">${fmt(v-e)}</div><div class="sl">Restant</div></div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--tx2);text-align:center;font-weight:700">${allOrd.length} commande(s) · ${allOrd.filter(o=>o.paid).length} payée(s)</div>
+    </div>
+    <div class="card">
+      <div class="ct">💳 Cash vs Mobile Money</div>
+      <div class="g2">
+        <div class="sc am"><div class="sn">${fmt(ce+dc)}</div><div class="sl">💵 Cash encaissé</div></div>
+        <div class="sc am"><div class="sn">${fmt(me+dm)}</div><div class="sl">📱 MoMo encaissé</div></div>
+      </div>
+    </div>
+    ${delH}
+    <div class="card"><div class="ct">👤 Par serveur</div>${srvH}</div>
+    <div style="height:10px"></div>`;
+}
+
+// DELIVERY
+function openDel(){document.getElementById('delmodal').classList.add('on')}
+function closeDel(){document.getElementById('delmodal').classList.remove('on');document.getElementById('deldesc').value='';document.getElementById('delamount').value='';delMode='cash';setDM('cash')}
+function setDM(m){delMode=m;document.getElementById('dlcash').classList.toggle('on',m==='cash');document.getElementById('dlmomo').classList.toggle('on',m==='momo')}
+async function submitDel(){
+  const desc=document.getElementById('deldesc').value.trim();
+  const amt=parseInt(document.getElementById('delamount').value);
+  if(!desc||isNaN(amt)||amt<=0){toast('Remplis tous les champs',true);return}
+  try{
+    await sb('deliveries',{method:'POST',body:{id:Date.now(),description:desc,amount:amt,mode:delMode,delivery_date:td(),delivery_time:tn()},prefer:'return=minimal'});
+    closeDel();toast('Livraison ajoutée ✓');await loadToday();refHome();
+  }catch(e){toast('Erreur',true)}
+}
+
+function toast(msg,err){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast'+(err?' err':'')+' on';
+  setTimeout(()=>t.classList.remove('on'),2800);
+}
+</script>
+</body>
+</html>
