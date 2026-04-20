@@ -492,11 +492,24 @@ function renderOrders(){
         <div style="display:flex;gap:6px">
           <button class="bdg cashb" style="cursor:pointer;border:none;padding:6px 12px;font-size:11px" onclick="openEdit(${o.id})">✏️ Modifier</button>
           ${role==='patron'&&!o.paid?`<button class="bdg paid" style="cursor:pointer;border:none;padding:6px 14px;font-size:11px" onclick="mpR(${o.id})">✓ Payé</button>`:''}
+          ${role==='patron'?`<button class="bdg open" style="cursor:pointer;border:none;padding:6px 12px;font-size:11px" onclick="confirmDelete(${o.id})">🗑 Supprimer</button>`:''}
         </div>
       </div>
     </div>`).join('');
 }
 async function mpR(id){await markPaid(id);renderOrders()}
+
+function confirmDelete(id){
+  if(confirm('Supprimer cette commande ? Cette action est irréversible.')){
+    deleteOrder(id);
+  }
+}
+async function deleteOrder(id){
+  try{
+    await sb(`orders?id=eq.${id}`,{method:'DELETE',prefer:'return=minimal'});
+    toast('Commande supprimée');await loadToday();refHome();renderOrders();
+  }catch(e){toast('Erreur suppression',true)}
+}
 
 // EDIT
 function openEdit(id){
