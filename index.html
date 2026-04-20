@@ -150,7 +150,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
       </div>
     </div>
     <div class="card">
-      <div class="ct">🍚 Igname pilée</div>
+      <div class="ct">MENU</div>
       <div class="g3" style="margin-bottom:8px">
         <button class="bico" onclick="add('ign500','Igname pilée','🍚',500)"><span class="ic">🍚</span><span class="lb">1 boule</span><span class="pr">500 F</span></button>
         <button class="bico" onclick="add('ign1000','Igname pilée','🍚',1000)"><span class="ic">🍚</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
@@ -158,7 +158,6 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
       </div>
       <div class="g2">
         <button class="bico" onclick="add('ign2000','Igname pilée','🍚',2000)"><span class="ic">🍚</span><span class="lb">Plat 2000</span><span class="pr">2 000 F</span></button>
-        <button class="bico" onclick="add('ignx','Igname extra','🍚',200)"><span class="ic">🍚</span><span class="lb">Extra boule</span><span class="pr">200 F</span></button>
       </div>
     </div>
     <div class="card">
@@ -166,11 +165,10 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
       <div class="g3">
         <button class="bico" onclick="add('pat200','Pâte noire','🫕',200)"><span class="ic">🫕</span><span class="lb">1 boule</span><span class="pr">200 F</span></button>
         <button class="bico" onclick="add('pat1000','Pâte noire','🫕',1000)"><span class="ic">🫕</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
-        <button class="bico" onclick="add('patx','Pâte extra','🫕',200)"><span class="ic">🫕</span><span class="lb">Extra boule</span><span class="pr">200 F</span></button>
       </div>
     </div>
     <div class="card">
-      <div class="ct">🥩 Accompagnements</div>
+      <div class="ct">💚 Compléments</div>
       <div class="g2">
         <button class="bico" onclick="add('viande','Viande','🥩',300)"><span class="ic">🥩</span><span class="lb">Viande</span><span class="pr">300 F</span></button>
         <button class="bico" onclick="add('fromage','Fromage','🧀',100)"><span class="ic">🧀</span><span class="lb">Fromage</span><span class="pr">100 F</span></button>
@@ -294,7 +292,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
     </div>
     <div style="display:flex;gap:10px">
       <button class="bsec" style="flex:1" onclick="closeDel()">Annuler</button>
-      <button class="bmain" style="flex:1" onclick="submitDel()">Confirmer</button>
+      <button class="bmain" style="flex:1" onclick="saveEdit()">Confirmer</button>
     </div>
   </div>
 </div>
@@ -303,7 +301,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
 </div>
 
 <script>
-const SB='https://wmhtdufqgebraftkxgqs.supabase.co';
+const SB='https://wmhtdufqgebraftkxgqs.supabase.co/rest/v1/';
 const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtaHRkdWZxZ2VicmFmdGt4Z3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ1ODMsImV4cCI6MjA5MTMwMDU4M30.jWzKbRgBnGOIS6AKvnHIAkNOL4OsjInumSFhbLqjMCQ';
 const PP='1234',PS='0000';
 let role=null,pbuf='',cart=[],payMode='cash',delMode='cash';
