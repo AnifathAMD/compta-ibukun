@@ -337,12 +337,19 @@ async function loadToday(){
 }
 
 async function loadPeriod(p){
-  const dates=datesFor(p);
-  const oQ=dates.map(d=>'order_date=eq.'+encodeURIComponent(d)).join(',');
-  const dQ=dates.map(d=>'delivery_date=eq.'+encodeURIComponent(d)).join(',');
+  const now = new Date();
+  const start = new Date(now);
+  if(p === 'week') start.setDate(start.getDate() - 6);
+  else if(p === 'month') start.setDate(start.getDate() - 29);
+  // Convertir en format ISO pour Supabase (YYYY-MM-DD)
+  function toISO(d){
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  const startISO = toISO(start);
+  const endISO = toISO(now);
   try{
-    allOrd=await sb(`orders?or=(${oQ})&order=created_at.desc`);
-    allDel=await sb(`deliveries?or=(${dQ})&order=created_at.desc`);
+    allOrd = await sb(`orders?order_date_iso=gte.${startISO}&order_date_iso=lte.${endISO}&order=created_at.desc`);
+    allDel = await sb(`deliveries?delivery_date_iso=gte.${startISO}&delivery_date_iso=lte.${endISO}&order=created_at.desc`);
   }catch(e){allOrd=[];allDel=[];toast('Erreur réseau',true)}
 }
 
@@ -426,13 +433,26 @@ function rCart(){
 }
 function setPM(m){payMode=m;document.getElementById('pcash').classList.toggle('on',m==='cash');document.getElementById('pmomo').classList.toggle('on',m==='momo')}
 
+function toISO(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
 async function submitOrder(){
   const srv=document.getElementById('isrv').value.trim();
   const tbl=document.getElementById('itbl').value.trim();
   if(!srv){toast('Entre ton nom !',true);return}
   if(!cart.length){toast('Aucun plat sélectionné',true);return}
   const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  const o={id:Date.now(),server:srv,table_num:tbl||'—',items:cart.map(c=>({...c})),total,pay_mode:payMode,paid:false,order_date:td(),order_time:tn()};
+  const o={
+    id:Date.now(),
+    server:srv,
+    table_num:tbl||'—',
+    items:cart.map(c=>({...c})),
+    total,
+    pay_mode:payMode,
+    paid:false,
+    order_date:td(),
+    order_date_iso:toISO(new Date())
+  };
   const btn=document.getElementById('bsubmit');
   btn.textContent='⏳ Envoi...';btn.disabled=true;
   try{
@@ -581,7 +601,15 @@ async function submitDel(){
   const amt=parseInt(document.getElementById('delamount').value);
   if(!desc||isNaN(amt)||amt<=0){toast('Remplis tous les champs',true);return}
   try{
-    await sb('deliveries',{method:'POST',body:{id:Date.now(),description:desc,amount:amt,mode:delMode,delivery_date:td(),delivery_time:tn()},prefer:'return=minimal'});
+    await sb('deliveries',{method:'POST',body:{
+      id:Date.now(),
+      description:desc,
+      amount:amt,
+      mode:delMode,
+      delivery_date:td(),
+      delivery_date_iso:toISO(new Date()),
+      delivery_time:tn()
+    },prefer:'return=minimal'});
     closeDel();toast('Livraison ajoutée ✓');await loadToday();refHome();
   }catch(e){toast('Erreur',true)}
 }
