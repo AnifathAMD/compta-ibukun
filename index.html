@@ -151,6 +151,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
     </div>
     <div class="card">
       <div class="ct">MENU</div>
+      <div class="ct">🍛 Igname pilée</div>
       <div class="g3" style="margin-bottom:8px">
         <button class="bico" onclick="add('ign500','Igname pilée','🍛',500)"><span class="ic">🍛</span><span class="lb">1 boule</span><span class="pr">500 F</span></button>
         <button class="bico" onclick="add('ign1000','Igname pilée','🍛',1000)"><span class="ic">🍛</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
@@ -162,7 +163,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
      
     </div>
     <div class="card">
-      <div class="ct">🫕 Pâte noire</div>
+      <div class="ct">🍚 Pâte noire</div>
       <div class="g3">
         <button class="bico" onclick="add('pat200','Pâte noire','🍚',200)"><span class="ic">🍚</span><span class="lb">1 boule</span><span class="pr">200 F</span></button>
         <button class="bico" onclick="add('pat1000','Pâte noire','🍚',1000)"><span class="ic">🍚</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
@@ -252,6 +253,27 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
     <div class="ct">Articles actuels</div>
     <div id="editcartlist"></div>
     <div class="div"></div>
+    <div class="ct" style="margin-top:4px">Modifier la table</div>
+      <select class="inp" id="edit-table" style="margin-bottom:12px">
+        <option value="Bénin">🇧🇯 Bénin</option>
+        <option value="Mali">🇲🇱 Mali</option>
+        <option value="Niger">🇳🇪 Niger</option>
+        <option value="Afrique du Sud">🇿🇦 Afrique du Sud</option>
+        <option value="Maroc">🇲🇦 Maroc</option>
+        <option value="Togo">🇹🇬 Togo</option>
+        <option value="Sénégal">🇸🇳 Sénégal</option>
+        <option value="Côte d'Ivoire">🇨🇮 Côte d'Ivoire</option>
+        <option value="Nigéria">🇳🇬 Nigéria</option>
+        <option value="Burkina Faso">🇧🇫 Burkina Faso</option>
+        <option value="Cameroun">🇨🇲 Cameroun</option>
+        <option value="Gabon">🇬🇦 Gabon</option>
+      </select>
+    <div class="ct">Modifier le mode de paiement</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <button class="tb on" id="edit-cash" onclick="setEditPM('cash')">💵 Cash</button>
+      <button class="tb" id="edit-momo" onclick="setEditPM('momo')">📱 Mobile Money</button>
+    </div>
+    
     <div class="ct" style="margin-top:4px">Ajouter un article</div>
     <div class="g3" style="margin-bottom:8px">
       <button class="bico" onclick="eadd('ign500','Igname pilée','🍛',500)"><span class="ic">🍛</span><span class="lb">Boule</span><span class="pr">500 F</span></button>
@@ -371,7 +393,12 @@ function ckPin(){
   else if(pbuf===PS){role='serveur';pbuf='';udots();go('s-home')}
   else{document.getElementById('perr').textContent='Code incorrect';pbuf='';udots();setTimeout(()=>{document.getElementById('perr').textContent=''},1500)}
 }
-function logout(){role=null;pbuf='';udots();cart=[];document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById('s-login').classList.add('on')}
+function logout(){
+  if(!confirm('Voulez-vous vraiment quitter ?')) return;
+  role=null;pbuf='';udots();cart=[];
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById('s-login').classList.add('on');
+}
 
 async function go(id){
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
@@ -400,20 +427,24 @@ function refHome(){
     pw.style.display='block';
     document.getElementById('pendlist').innerHTML=pend.map(o=>`
       <div class="orow">
-        <div>
+        <div style="flex:1">
           <div style="font-size:13px;font-weight:700;color:var(--tx)">Table ${o.table_num||'—'} · ${o.server}</div>
           <div style="font-size:11px;color:var(--tx2);margin-top:2px">${(o.items||[]).map(i=>i.ic+' '+i.name+' ×'+i.qty).join(' · ')}</div>
         </div>
-        <div style="display:flex;align-items:center;gap:6px">
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
           <span style="font-size:14px;font-weight:800;color:var(--or)">${fmt(o.total)} F</span>
-          ${role==='patron'?`<button class="bdg paid" style="cursor:pointer;border:none;padding:6px 12px" onclick="markPaid(${o.id})">✓ Payé</button>`:''}
+          <div style="display:flex;gap:5px">
+            <button class="bdg cashb" style="cursor:pointer;border:none;padding:5px 10px;font-size:11px" onclick="openEdit(${o.id})">✏️ Modifier</button>
+            ${role==='patron'?`<button class="bdg paid" style="cursor:pointer;border:none;padding:5px 10px;font-size:11px" onclick="markPaid(${o.id})">✓ Payé</button>`:''}
+          </div>
         </div>
       </div>`).join('');
   }else{pw.style.display='none'}
   document.getElementById('hnav').innerHTML=`
     <button class="nb on" onclick="go('s-home')"><span class="ni">🏠</span>Accueil</button>
     <button class="nb" onclick="goCmd()"><span class="ni">➕</span>Commande</button>
-    ${role==='patron'?`<button class="nb" onclick="go('s-orders')"><span class="ni">📋</span>Commandes</button><button class="nb" onclick="go('s-bilan')"><span class="ni">📊</span>Bilan</button>`:''}`;
+    <button class="nb" onclick="go('s-orders')"><span class="ni">📋</span>Commandes</button>
+    ${role==='patron'?`<button class="nb" onclick="go('s-bilan')"><span class="ni">📊</span>Bilan</button>`:''}`;
 }
 
 // CART
@@ -483,7 +514,7 @@ function renderOrders(){
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
         <div>
           <span style="font-size:14px;font-weight:800;color:var(--tx)">Table ${o.table_num}</span>
-          <span style="font-size:11px;color:var(--tx2);margin-left:8px;font-weight:700">${o.server} · ${o.order_time}</span>
+          <span style="font-size:11px;color:var(--tx2);margin-left:8px;font-weight:700">${o.server} · ${o.order_date||''} ${o.order_time}</span>
         </div>
         <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">
           <span class="bdg ${o.paid?'paid':'open'}">${o.paid?'✓ Payé':'En attente'}</span>
@@ -519,7 +550,10 @@ async function deleteOrder(id){
 function openEdit(id){
   const o=tOrd.find(x=>x.id===id);if(!o)return;
   editId=id;editCart=(o.items||[]).map(i=>({...i}));
+  editPayMode=o.pay_mode||'cash';
   document.getElementById('editinfo').textContent='Table '+o.table_num+' · '+o.server+' · '+o.order_time;
+  document.getElementById('edit-table').value=o.table_num||'Bénin';
+  setEditPM(editPayMode);
   rEditCart();document.getElementById('editmodal').classList.add('on');
 }
 function closeEdit(){document.getElementById('editmodal').classList.remove('on');editId=null;editCart=[]}
@@ -540,15 +574,24 @@ function rEditCart(){
         </div>
       </div>`).join('');
 }
+
+let editPayMode='cash';
+function setEditPM(m){
+  editPayMode=m;
+  document.getElementById('edit-cash').classList.toggle('on',m==='cash');
+  document.getElementById('edit-momo').classList.toggle('on',m==='momo');
+}
+
 async function saveEdit(){
   if(!editId)return;
   const total=editCart.reduce((s,c)=>s+c.price*c.qty,0);
+  const newTable=document.getElementById('edit-table').value;
   try{
-    await sb(`orders?id=eq.${editId}`,{method:'PATCH',body:{items:editCart,total},prefer:'return=minimal'});
+    await sb(`orders?id=eq.${editId}`,{method:'PATCH',body:{items:editCart,total,table_num:newTable,pay_mode:editPayMode},prefer:'return=minimal'});
     toast('Commande mise à jour ✓');closeEdit();await loadToday();renderOrders();
   }catch(e){toast('Erreur',true)}
 }
-
+  
 // BILAN
 async function setBP(p){
   bPeriod=p;['day','week','month'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x===p));
