@@ -10,7 +10,16 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
-:root{--or:#D85A30;--orl:#FAECE7;--gr:#3B6D11;--grl:#EAF3DE;--re:#A32D2D;--rel:#FCEBEB;--am:#BA7517;--aml:#FAEEDA;--bg:#fff;--bg2:#f5f0ec;--bd:#e0d5c8;--tx:#1a1008;--tx2:#7a5c40}
+:root{
+  --or:#D85A30;--orl:#FAECE7;--gr:#3B6D11;--grl:#EAF3DE;
+  --re:#A32D2D;--rel:#FCEBEB;--am:#BA7517;--aml:#FAEEDA;
+  --bg:#fff;--bg2:#f5f0ec;--bd:#e0d5c8;--tx:#1a1008;--tx2:#7a5c40;
+  --ign:#7B4F00;--ign-l:#FFF3E0;
+  --pat:#2E5902;--pat-l:#F0F7E6;
+  --comp:#8B1A6B;--comp-l:#FCE8F7;
+  --bier:#B8860B;--bier-l:#FEFCE8;
+  --bois:#1565A8;--bois-l:#EAF2FF;
+}
 #app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg2);position:relative}
 .scr{display:none;flex-direction:column;height:100vh;overflow:hidden}
 .scr.on{display:flex}
@@ -24,14 +33,41 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
 .bmain{background:var(--or);border:none;color:#fff;padding:15px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;width:100%;box-shadow:0 3px 10px rgba(216,90,48,.3)}
 .bmain:active{transform:scale(.98)}
 .bsec{background:var(--bg);border:2px solid var(--or);color:var(--or);padding:12px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;width:100%}
-.bico{background:var(--bg2);border:1.5px solid var(--bd);border-radius:12px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--tx);-webkit-user-select:none;user-select:none}
-.bico:active{background:var(--or);color:#fff;border-color:var(--or);transform:scale(.95)}
+.bsec:active{background:var(--orl)}
+
+/* ── MENU CARDS ── */
+.menu-card{border-radius:16px;padding:14px;flex-shrink:0;border:none}
+.menu-card.ign{background:var(--ign-l);border:1.5px solid #F4C07A}
+.menu-card.pat{background:var(--pat-l);border:1.5px solid #A8D07A}
+.menu-card.comp{background:var(--comp-l);border:1.5px solid #E8A8D8}
+.menu-card.bier{background:var(--bier-l);border:1.5px solid #E8D07A}
+.menu-card.bois{background:var(--bois-l);border:1.5px solid #7AB8E8}
+.menu-hdr{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.menu-hdr-ico{font-size:28px;line-height:1}
+.menu-hdr-txt{font-size:14px;font-weight:800;color:var(--tx)}
+.menu-hdr-sub{font-size:10px;color:var(--tx2);font-weight:600;margin-top:1px}
+
+/* ── ITEM BUTTONS ── */
+.bico{border-radius:14px;padding:12px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--tx);-webkit-user-select:none;user-select:none;border:2px solid transparent;transition:transform .1s;background:var(--bg)}
+.bico:active{transform:scale(.93);opacity:.85}
+.menu-card.ign .bico{border-color:#F4C07A;box-shadow:0 2px 6px rgba(123,79,0,.1)}
+.menu-card.ign .bico:active{background:var(--ign);color:#fff;border-color:var(--ign)}
+.menu-card.pat .bico{border-color:#A8D07A;box-shadow:0 2px 6px rgba(46,89,2,.1)}
+.menu-card.pat .bico:active{background:var(--pat);color:#fff;border-color:var(--pat)}
+.menu-card.comp .bico{border-color:#E8A8D8;box-shadow:0 2px 6px rgba(139,26,107,.1)}
+.menu-card.comp .bico:active{background:var(--comp);color:#fff;border-color:var(--comp)}
+.menu-card.bier .bico{border-color:#E8D07A;box-shadow:0 2px 6px rgba(184,134,11,.1)}
+.menu-card.bier .bico:active{background:var(--bier);color:#fff;border-color:var(--bier)}
+.menu-card.bois .bico{border-color:#7AB8E8;box-shadow:0 2px 6px rgba(21,101,168,.1)}
+.menu-card.bois .bico:active{background:var(--bois);color:#fff;border-color:var(--bois)}
 .bico .ic{font-size:24px;line-height:1}
-.bico .lb{font-size:10px;font-weight:700;text-align:center;line-height:1.2}
-.bico .pr{font-size:10px;color:var(--or);font-weight:700}
-.bico:active .pr{color:rgba(255,255,255,.85)}
+.bico .lb{font-size:11px;font-weight:800;text-align:center;line-height:1.2;color:var(--tx)}
+.bico .pr{font-size:11px;font-weight:800;color:var(--or)}
+.bico:active .lb,.bico:active .pr{color:#fff}
+
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .sc{background:var(--bg2);border-radius:12px;padding:10px 6px;text-align:center}
 .sn{font-size:17px;font-weight:800;color:var(--tx)}
@@ -47,7 +83,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
 .qrow{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd)}
 .qrow:last-child{border-bottom:none}
 .qc{display:flex;align-items:center;gap:10px}
-.qb{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--bd);background:var(--bg2);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--tx);font-weight:700}
+.qb{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--bd);background:var(--bg2);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--tx);font-weight:700}
 .qb:active{background:var(--or);color:#fff;border-color:var(--or)}
 .nav{display:flex;background:var(--bg);border-top:1px solid var(--bd);flex-shrink:0;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:20;box-shadow:0 -2px 10px rgba(0,0,0,.06)}
 .nb{flex:1;padding:10px 4px 8px;border:none;background:transparent;color:var(--tx2);font-size:9px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;text-transform:uppercase;letter-spacing:.5px}
@@ -82,6 +118,8 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
 .orcard{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:13px;margin-bottom:8px}
 .orcard.oc{border-left:3px solid var(--re)}
 .orcard.pc{border-left:3px solid var(--gr)}
+.sub-sep{font-size:11px;font-weight:800;color:var(--tx2);padding:8px 0 6px;display:flex;align-items:center;gap:6px}
+.sub-sep::after{content:'';flex:1;height:1px;background:var(--bd)}
 </style>
 </head>
 <body>
@@ -116,9 +154,9 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
     <div class="card">
       <div class="ct" id="tdlbl"></div>
       <div class="sg">
-        <div class="sc"><div class="sn" id="sv">—</div><div class="sl">Vendu (F)</div></div>
-        <div class="sc gr"><div class="sn" id="se">—</div><div class="sl">Encaissé</div></div>
-        <div class="sc re"><div class="sn" id="sr">—</div><div class="sl">Restant</div></div>
+        <div class="sc"><div class="sn" id="sv">—</div><div class="sl" id="sl-v">Vendu (F)</div></div>
+        <div class="sc gr"><div class="sn" id="se">—</div><div class="sl" id="sl-e">Encaissé</div></div>
+        <div class="sc re"><div class="sn" id="sr">—</div><div class="sl" id="sl-r">Restant</div></div>
       </div>
       <div id="scnt" style="font-size:11px;color:var(--tx2);text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);font-weight:700"></div>
     </div>
@@ -142,69 +180,108 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
 <div id="s-cmd" class="scr">
   <div class="top"><div><div class="top-t">Nouvelle commande</div></div><button class="top-btn" onclick="go('s-home')">← Retour</button></div>
   <div class="sb">
+
+    <!-- Infos -->
     <div class="card">
-      <div class="ct">Qui prend la commande ?</div>
+      <div class="ct">👤 Qui prend la commande ?</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div><label class="ilbl">Ton nom</label><input class="inp" id="isrv" placeholder="Ex: Fatou"></div>
-        <div><label class="ilbl">Table / Client</label><input class="inp" id="itbl" placeholder="Ex: T2"></div>
+        <div><label class="ilbl">Table</label>
+          <select class="inp" id="itbl">
+            <option value="">— Choisir une table —</option>
+            <option>🇧🇯 Bénin</option><option>🇲🇱 Mali</option><option>🇳🇪 Niger</option>
+            <option>🇿🇦 Afrique du Sud</option><option>🇲🇦 Maroc</option><option>🇹🇬 Togo</option>
+            <option>🇸🇳 Sénégal</option><option>🇨🇮 Côte d'Ivoire</option><option>🇳🇬 Nigéria</option>
+            <option>🇧🇫 Burkina Faso</option><option>🇨🇲 Cameroun</option><option>🇬🇦 Gabon</option>
+            <option>🇩🇿 Algérie</option><option>🇹🇳 Tunisie</option><option>🇨🇩 Congo</option>
+            <option>🇷🇴 Tchad</option><option>🇬🇭 Ghana</option><option>🇬🇳 Guinée</option>
+            <option>Table 🩵</option><option>Table 💙</option><option>Table 🖤</option>
+            <option>Table 💚</option><option>🚶🏽‍♀️ Emportée</option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <div class="ct">MENU</div>
-      <div class="ct">🍛 Igname pilée</div>
-      <div class="g3" style="margin-bottom:8px">
+
+    <!-- IGNAME -->
+    <div class="menu-card ign">
+      <div class="menu-hdr">
+        <span class="menu-hdr-ico">🍛</span>
+        <div><div class="menu-hdr-txt">Igname Pilée</div><div class="menu-hdr-sub">Choisir la portion</div></div>
+      </div>
+      <div class="g3">
         <button class="bico" onclick="add('ign500','Igname pilée','🍛',500)"><span class="ic">🍛</span><span class="lb">1 boule</span><span class="pr">500 F</span></button>
         <button class="bico" onclick="add('ign1000','Igname pilée','🍛',1000)"><span class="ic">🍛</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
         <button class="bico" onclick="add('ign1500','Igname pilée','🍛',1500)"><span class="ic">🍛</span><span class="lb">Plat 1500</span><span class="pr">1 500 F</span></button>
-        <button class="bico" onclick="add('ign1500','Igname pilée','🍛',2500)"><span class="ic">🍛</span><span class="lb">Plat 2500</span><span class="pr">2 500 F</span></button>
-        <button class="bico" onclick="add('ign1500','Igname pilée','🍛',3000)"><span class="ic">🍛</span><span class="lb">Plat 3000</span><span class="pr">3 000 F</span></button>
         <button class="bico" onclick="add('ign2000','Igname pilée','🍛',2000)"><span class="ic">🍛</span><span class="lb">Plat 2000</span><span class="pr">2 000 F</span></button>
+        <button class="bico" onclick="add('ign2500','Igname pilée','🍛',2500)"><span class="ic">🍛</span><span class="lb">Plat 2500</span><span class="pr">2 500 F</span></button>
+        <button class="bico" onclick="add('ign3000','Igname pilée','🍛',3000)"><span class="ic">🍛</span><span class="lb">Plat 3000</span><span class="pr">3 000 F</span></button>
       </div>
-     
     </div>
-    <div class="card">
-      <div class="ct">🍚 Pâte noire</div>
-      <div class="g3">
+
+    <!-- PATE -->
+    <div class="menu-card pat">
+      <div class="menu-hdr">
+        <span class="menu-hdr-ico">🍚</span>
+        <div><div class="menu-hdr-txt">Pâte Noire</div><div class="menu-hdr-sub">Choisir la portion</div></div>
+      </div>
+      <div class="g2">
         <button class="bico" onclick="add('pat200','Pâte noire','🍚',200)"><span class="ic">🍚</span><span class="lb">1 boule</span><span class="pr">200 F</span></button>
         <button class="bico" onclick="add('pat1000','Pâte noire','🍚',1000)"><span class="ic">🍚</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
-        <button class="bico" onclick="add('pat1000','Pâte noire','🍚',1500)"><span class="ic">🍚</span><span class="lb">Plat 1500</span><span class="pr">1 500 F</span></button>
-        <button class="bico" onclick="add('pat1000','Pâte noire','🍚',2000)"><span class="ic">🍚</span><span class="lb">Plat 2000</span><span class="pr">2 000 F</span></button>
+        <button class="bico" onclick="add('pat1500','Pâte noire','🍚',1500)"><span class="ic">🍚</span><span class="lb">Plat 1500</span><span class="pr">1 500 F</span></button>
+        <button class="bico" onclick="add('pat2000','Pâte noire','🍚',2000)"><span class="ic">🍚</span><span class="lb">Plat 2000</span><span class="pr">2 000 F</span></button>
       </div>
     </div>
-    <div class="card">
-      <div class="ct">💚 Compléments</div>
+
+    <!-- COMPLEMENTS -->
+    <div class="menu-card comp">
+      <div class="menu-hdr">
+        <span class="menu-hdr-ico">🥩</span>
+        <div><div class="menu-hdr-txt">Compléments</div><div class="menu-hdr-sub">Ajouter à un plat</div></div>
+      </div>
       <div class="g2">
         <button class="bico" onclick="add('viande','Viande','🥩',300)"><span class="ic">🥩</span><span class="lb">Viande</span><span class="pr">300 F</span></button>
         <button class="bico" onclick="add('fromage','Fromage','🧀',100)"><span class="ic">🧀</span><span class="lb">Fromage</span><span class="pr">100 F</span></button>
       </div>
     </div>
-    <div class="card">
-      <div class="ct">🍺 Bières</div>
-      <div class="g3">
-        <button class="bico" onclick="add('bi600','Bière','🍺',600)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">600 F</span></button>
-        <button class="bico" onclick="add('bi700','Bière','🍺',700)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">700 F</span></button>
-        <button class="bico" onclick="add('bi900','Bière','🍺',800)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">800 F</span></button>
-        <button class="bico" onclick="add('bi900','Bière','🍺',1000)"><span class="ic">🍺</span><span class="lb">Bière</span><span class="pr">1000 F</span></button>
+
+    <!-- BIERES -->
+    <div class="menu-card bier">
+      <div class="menu-hdr">
+        <span class="menu-hdr-ico">🍺</span>
+        <div><div class="menu-hdr-txt">Bières</div><div class="menu-hdr-sub">Choisir le prix</div></div>
+      </div>
+      <div class="g4">
+        <button class="bico" onclick="add('bi600','Bière','🍺',600)"><span class="ic">🍺</span><span class="lb">600 F</span><span class="pr">600 F</span></button>
+        <button class="bico" onclick="add('bi700','Bière','🍺',700)"><span class="ic">🍺</span><span class="lb">700 F</span><span class="pr">700 F</span></button>
+        <button class="bico" onclick="add('bi800','Bière','🍺',800)"><span class="ic">🍺</span><span class="lb">800 F</span><span class="pr">800 F</span></button>
+        <button class="bico" onclick="add('bi1000','Bière','🍺',1000)"><span class="ic">🍺</span><span class="lb">1000 F</span><span class="pr">1 000 F</span></button>
       </div>
     </div>
-    <div class="card">
-      <div class="ct">🥤 Boissons</div>
-      <div class="sep">Sucreries</div>
-      <div class="g2" style="margin-bottom:8px">
-        <button class="bico" onclick="add('suc300','Sucrerie','🥤',350)"><span class="ic">🥤</span><span class="lb">Sucrerie</span><span class="pr">350 F</span></button>
+
+    <!-- BOISSONS -->
+    <div class="menu-card bois">
+      <div class="menu-hdr">
+        <span class="menu-hdr-ico">🥤</span>
+        <div><div class="menu-hdr-txt">Boissons</div><div class="menu-hdr-sub">Sucreries · Eau · Jus</div></div>
+      </div>
+      <div class="sub-sep">Sucreries</div>
+      <div class="g2" style="margin-bottom:10px">
+        <button class="bico" onclick="add('suc350','Sucrerie','🥤',350)"><span class="ic">🥤</span><span class="lb">Sucrerie</span><span class="pr">350 F</span></button>
         <button class="bico" onclick="add('suc500','Sucrerie','🥤',500)"><span class="ic">🥤</span><span class="lb">Sucrerie</span><span class="pr">500 F</span></button>
       </div>
-      <div class="sep">Eau</div>
-      <div class="g2" style="margin-bottom:8px">
+      <div class="sub-sep">Eau</div>
+      <div class="g2" style="margin-bottom:10px">
         <button class="bico" onclick="add('eau500','Eau','💧',500)"><span class="ic">💧</span><span class="lb">Eau</span><span class="pr">500 F</span></button>
         <button class="bico" onclick="add('eau600','Eau','💧',600)"><span class="ic">💧</span><span class="lb">Eau</span><span class="pr">600 F</span></button>
       </div>
-      <div class="sep">Jus naturels</div>
+      <div class="sub-sep">Jus naturels</div>
       <div class="g2">
         <button class="bico" onclick="add('jus500','Jus naturel','🍹',500)"><span class="ic">🍹</span><span class="lb">Jus naturel</span><span class="pr">500 F</span></button>
         <button class="bico" onclick="add('jus600','Jus naturel','🍹',600)"><span class="ic">🍹</span><span class="lb">Jus naturel</span><span class="pr">600 F</span></button>
       </div>
     </div>
+
+    <!-- CART -->
     <div class="card" id="cartcard" style="display:none">
       <div class="ct">🛒 Commande en cours</div>
       <div id="cartlist"></div>
@@ -218,7 +295,7 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
         </div>
       </div>
       <div style="background:var(--aml);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--am);font-weight:700">
-        ℹ️ La commande sera enregistrée comme <strong>non payée</strong>. Tu confirmes le paiement depuis la liste des commandes quand le client paie.
+        ℹ️ La commande sera enregistrée comme <strong>non payée</strong>. Tu confirmes le paiement quand le client paie.
       </div>
       <button class="bmain" id="bsubmit" onclick="submitOrder()">✓ Enregistrer la commande</button>
     </div>
@@ -238,8 +315,14 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
   <div style="padding:12px 12px 0;flex-shrink:0">
     <div class="tabtow">
       <button class="tabb on" id="bt-day" onclick="setBP('day')">Aujourd'hui</button>
-      <button class="tabb" id="bt-week" onclick="setBP('week')">7 derniers jours</button>
-      <button class="tabb" id="bt-month" onclick="setBP('month')">30 derniers jours</button>
+      <button class="tabb" id="bt-week" onclick="setBP('week')">7 jours</button>
+      <button class="tabb" id="bt-month" onclick="setBP('month')">30 jours</button>
+      <button class="tabb" id="bt-custom" onclick="setBP('custom')">📅 Période</button>
+    </div>
+    <div id="custom-range" style="display:none;margin-top:10px;display:none;gap:8px;align-items:center">
+      <div style="flex:1"><label class="ilbl">Du</label><input type="date" class="inp" id="date-from"></div>
+      <div style="flex:1"><label class="ilbl">Au</label><input type="date" class="inp" id="date-to"></div>
+      <button class="bmain" style="width:auto;padding:10px 16px;margin-top:16px;font-size:13px" onclick="applyCustomRange()">OK</button>
     </div>
   </div>
   <div class="sb" id="bilanbody" style="padding-top:10px"><div style="text-align:center;padding:30px"><div class="spin"></div></div></div>
@@ -250,50 +333,50 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
   <div class="modal">
     <div class="mt">✏️ Modifier la commande</div>
     <div id="editinfo" style="font-size:12px;color:var(--tx2);margin-bottom:12px;font-weight:700"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div>
+        <label class="ilbl">Table</label>
+        <select class="inp" id="edit-table">
+          <option value="">— Choisir —</option>
+          <option>🇧🇯 Bénin</option><option>🇲🇱 Mali</option><option>🇳🇪 Niger</option>
+          <option>🇿🇦 Afrique du Sud</option><option>🇲🇦 Maroc</option><option>🇹🇬 Togo</option>
+          <option>🇸🇳 Sénégal</option><option>🇨🇮 Côte d'Ivoire</option><option>🇳🇬 Nigéria</option>
+          <option>🇧🇫 Burkina Faso</option><option>🇨🇲 Cameroun</option><option>🇬🇦 Gabon</option>
+          <option>🇩🇿 Algérie</option><option>🇹🇳 Tunisie</option><option>🇨🇩 Congo</option>
+          <option>🇷🇴 Tchad</option><option>🇬🇭 Ghana</option><option>🇬🇳 Guinée</option>
+          <option>Table 🩵</option><option>Table 💙</option><option>Table 🖤</option>
+          <option>Table 💚</option><option>🚶🏽‍♀️ Emportée</option>
+        </select>
+      </div>
+      <div>
+        <label class="ilbl">Paiement</label>
+        <div style="display:flex;gap:6px;margin-top:2px">
+          <button class="tb on" id="edit-cash" onclick="setEditPM('cash')" style="padding:10px 6px;font-size:12px">💵 Cash</button>
+          <button class="tb" id="edit-momo" onclick="setEditPM('momo')" style="padding:10px 6px;font-size:12px">📱 MoMo</button>
+        </div>
+      </div>
+    </div>
+
     <div class="ct">Articles actuels</div>
     <div id="editcartlist"></div>
     <div class="div"></div>
-    <div class="ct" style="margin-top:4px">Modifier la table</div>
-      <select class="inp" id="edit-table" style="margin-bottom:12px">
-        <option value="Bénin">🇧🇯 Bénin</option>
-        <option value="Mali">🇲🇱 Mali</option>
-        <option value="Niger">🇳🇪 Niger</option>
-        <option value="Afrique du Sud">🇿🇦 Afrique du Sud</option>
-        <option value="Maroc">🇲🇦 Maroc</option>
-        <option value="Togo">🇹🇬 Togo</option>
-        <option value="Sénégal">🇸🇳 Sénégal</option>
-        <option value="Côte d'Ivoire">🇨🇮 Côte d'Ivoire</option>
-        <option value="Nigéria">🇳🇬 Nigéria</option>
-        <option value="Burkina Faso">🇧🇫 Burkina Faso</option>
-        <option value="Cameroun">🇨🇲 Cameroun</option>
-        <option value="Gabon">🇬🇦 Gabon</option>
-      </select>
-    <div class="ct">Modifier le mode de paiement</div>
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <button class="tb on" id="edit-cash" onclick="setEditPM('cash')">💵 Cash</button>
-      <button class="tb" id="edit-momo" onclick="setEditPM('momo')">📱 Mobile Money</button>
-    </div>
-    
     <div class="ct" style="margin-top:4px">Ajouter un article</div>
     <div class="g3" style="margin-bottom:8px">
-      <button class="bico" onclick="eadd('ign500','Igname pilée','🍛',500)"><span class="ic">🍛</span><span class="lb">Boule</span><span class="pr">500 F</span></button>
-      <button class="bico" onclick="eadd('ign1000','Igname pilée','🍛',1000)"><span class="ic">🍛</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
-      <button class="bico" onclick="eadd('ignx','Igname extra','🍛',200)"><span class="ic">🍛</span><span class="lb">Extra</span><span class="pr">200 F</span></button>
+      <button class="bico" style="background:var(--ign-l);border-color:#F4C07A" onclick="eadd('ign500','Igname pilée','🍛',500)"><span class="ic">🍛</span><span class="lb">Boule</span><span class="pr">500 F</span></button>
+      <button class="bico" style="background:var(--ign-l);border-color:#F4C07A" onclick="eadd('ign1000','Igname pilée','🍛',1000)"><span class="ic">🍛</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
+      <button class="bico" style="background:var(--ign-l);border-color:#F4C07A" onclick="eadd('ign1500','Igname pilée','🍛',1500)"><span class="ic">🍛</span><span class="lb">Plat 1500</span><span class="pr">1 500 F</span></button>
     </div>
     <div class="g3" style="margin-bottom:8px">
-      <button class="bico" onclick="eadd('pat200','Pâte noire','🫕',200)"><span class="ic">🫕</span><span class="lb">Boule</span><span class="pr">200 F</span></button>
-      <button class="bico" onclick="eadd('pat1000','Pâte noire','🫕',1000)"><span class="ic">🫕</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
-      <button class="bico" onclick="eadd('patx','Pâte extra','🫕',200)"><span class="ic">🫕</span><span class="lb">Extra</span><span class="pr">200 F</span></button>
-    </div>
-    <div class="g3" style="margin-bottom:8px">
-      <button class="bico" onclick="eadd('viande','Viande','🥩',300)"><span class="ic">🥩</span><span class="lb">Viande</span><span class="pr">300 F</span></button>
-      <button class="bico" onclick="eadd('fromage','Fromage','🧀',100)"><span class="ic">🧀</span><span class="lb">Fromage</span><span class="pr">100 F</span></button>
-      <button class="bico" onclick="eadd('bi600','Bière','🍺',600)"><span class="ic">🍺</span><span class="lb">Bière 600</span><span class="pr">600 F</span></button>
-    </div>
-    <div class="g3" style="margin-bottom:14px">
-      <button class="bico" onclick="eadd('bi700','Bière','🍺',700)"><span class="ic">🍺</span><span class="lb">Bière 700</span><span class="pr">700 F</span></button>
-      <button class="bico" onclick="eadd('bi900','Bière','🍺',900)"><span class="ic">🍺</span><span class="lb">Bière 900</span><span class="pr">900 F</span></button>
-      <button class="bico" onclick="eadd('suc300','Sucrerie','🥤',300)"><span class="ic">🥤</span><span class="lb">Sucr. 300</span><span class="pr">300 F</span></button>
+      <button class="bico" style="background:var(--pat-l);border-color:#A8D07A" onclick="eadd('pat1000','Pâte noire','🍚',1000)"><span class="ic">🍚</span><span class="lb">Plat 1000</span><span class="pr">1 000 F</span></button>
+      <button class="bico" style="background:var(--pat-l);border-color:#A8D07A" onclick="eadd('pat200','Pâte noire','🍚',200)"><span class="ic">🍚</span><span class="lb">Boule</span><span class="pr">200 F</span></button>
+      <button class="bico" style="background:var(--comp-l);border-color:#E8A8D8" onclick="eadd('viande','Viande','🥩',300)"><span class="ic">🥩</span><span class="lb">Viande</span><span class="pr">300 F</span></button>
+      <button class="bico" style="background:var(--comp-l);border-color:#E8A8D8" onclick="eadd('fromage','Fromage','🧀',100)"><span class="ic">🧀</span><span class="lb">Fromage</span><span class="pr">100 F</span></button>
+      <button class="bico" style="background:var(--comp-l);border-color:#E8A8D8" onclick="eadd('poisson','Poisson','🐟',500)"><span class="ic">🐟</span><span class="lb">Poisson</span><span class="pr">500 F</span></button>
+      <button class="bico" style="background:var(--bier-l);border-color:#E8D07A" onclick="eadd('bi600','Bière','🍺',600)"><span class="ic">🍺</span><span class="lb">Bière 600</span><span class="pr">600 F</span></button>
+      <button class="bico" style="background:var(--bier-l);border-color:#E8D07A" onclick="eadd('bi700','Bière','🍺',700)"><span class="ic">🍺</span><span class="lb">Bière 700</span><span class="pr">700 F</span></button>
+      <button class="bico" style="background:var(--bois-l);border-color:#7AB8E8" onclick="eadd('suc350','Sucrerie','🥤',350)"><span class="ic">🥤</span><span class="lb">Sucr. 350</span><span class="pr">350 F</span></button>
+      <button class="bico" style="background:var(--bois-l);border-color:#7AB8E8" onclick="eadd('suc500','Sucrerie','🥤',500)"><span class="ic">🥤</span><span class="lb">Sucr. 500</span><span class="pr">500 F</span></button>
     </div>
     <div class="tbar" style="margin-bottom:14px"><span>Nouveau total</span><strong id="edittot">0 F</strong></div>
     <div style="display:flex;gap:10px">
@@ -330,13 +413,14 @@ html,body{height:100%;background:#f5f0ec;font-family:'Nunito',sans-serif}
 const SB='https://wmhtdufqgebraftkxgqs.supabase.co';
 const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtaHRkdWZxZ2VicmFmdGt4Z3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ1ODMsImV4cCI6MjA5MTMwMDU4M30.jWzKbRgBnGOIS6AKvnHIAkNOL4OsjInumSFhbLqjMCQ';
 const PP='1234',PS='0000';
-let role=null,pbuf='',cart=[],payMode='cash',delMode='cash';
+let role=null,pbuf='',cart=[],payMode='cash',delMode='cash',editPayMode='cash';
 let tOrd=[],tDel=[],allOrd=[],allDel=[];
 let editId=null,editCart=[],bPeriod='day';
 
 function td(){return new Date().toLocaleDateString('fr-FR')}
 function tn(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
 function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
+function toISO(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 
 async function sb(path,o={}){
   const r=await fetch(SB+'/rest/v1/'+path,{
@@ -347,35 +431,27 @@ async function sb(path,o={}){
   const t=await r.text();return t?JSON.parse(t):[];
 }
 
-function datesFor(p){
-  const now=new Date(),d=[];
-  const n=p==='day'?1:p==='week'?7:30;
-  for(let i=0;i<n;i++){const x=new Date(now);x.setDate(x.getDate()-i);d.push(x.toLocaleDateString('fr-FR'));}
-  return d;
-}
-
 async function loadToday(){
   const t=td();
   try{
     tOrd=await sb(`orders?order_date=eq.${encodeURIComponent(t)}&order=created_at.desc`);
     tDel=await sb(`deliveries?delivery_date=eq.${encodeURIComponent(t)}&order=created_at.desc`);
-  }catch(e){tOrd=[];tDel=[];toast('Erreur réseau — vérifies ta connexion',true)}
+  }catch(e){tOrd=[];tDel=[];toast('Erreur réseau',true)}
 }
 
-async function loadPeriod(p){
-  const now = new Date();
-  const start = new Date(now);
-  if(p === 'week') start.setDate(start.getDate() - 6);
-  else if(p === 'month') start.setDate(start.getDate() - 29);
-  // Convertir en format ISO pour Supabase (YYYY-MM-DD)
-  function toISO(d){
-    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+async function loadPeriod(p,fromISO,toISO_){
+  const now=new Date();
+  const start=new Date(now);
+  let sISO,eISO;
+  if(p==='custom'){sISO=fromISO;eISO=toISO_;}
+  else{
+    if(p==='week')start.setDate(start.getDate()-6);
+    else if(p==='month')start.setDate(start.getDate()-29);
+    sISO=toISO(start);eISO=toISO(now);
   }
-  const startISO = toISO(start);
-  const endISO = toISO(now);
   try{
-    allOrd = await sb(`orders?order_date_iso=gte.${startISO}&order_date_iso=lte.${endISO}&order=created_at.desc`);
-    allDel = await sb(`deliveries?delivery_date_iso=gte.${startISO}&delivery_date_iso=lte.${endISO}&order=created_at.desc`);
+    allOrd=await sb(`orders?order_date_iso=gte.${sISO}&order_date_iso=lte.${eISO}&order=created_at.desc`);
+    allDel=await sb(`deliveries?delivery_date_iso=gte.${sISO}&delivery_date_iso=lte.${eISO}&order=created_at.desc`);
   }catch(e){allOrd=[];allDel=[];toast('Erreur réseau',true)}
 }
 
@@ -394,7 +470,7 @@ function ckPin(){
   else{document.getElementById('perr').textContent='Code incorrect';pbuf='';udots();setTimeout(()=>{document.getElementById('perr').textContent=''},1500)}
 }
 function logout(){
-  if(!confirm('Voulez-vous vraiment quitter ?')) return;
+  if(!confirm('Voulez-vous vraiment quitter ?'))return;
   role=null;pbuf='';udots();cart=[];
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
   document.getElementById('s-login').classList.add('on');
@@ -405,7 +481,7 @@ async function go(id){
   document.getElementById(id).classList.add('on');
   if(id==='s-home'){await loadToday();refHome()}
   if(id==='s-orders'){await loadToday();renderOrders()}
-  if(id==='s-bilan'){bPeriod='day';['day','week','month'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x==='day'));await loadPeriod('day');renderBilan()}
+  if(id==='s-bilan'){bPeriod='day';['day','week','month','custom'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x==='day'));document.getElementById('custom-range').style.display='none';await loadPeriod('day');renderBilan()}
 }
 function goCmd(){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById('s-cmd').classList.add('on')}
 
@@ -417,10 +493,23 @@ function refHome(){
   const v=tOrd.reduce((s,o)=>s+o.total,0);
   const e=tOrd.filter(o=>o.paid).reduce((s,o)=>s+o.total,0);
   const dt=tDel.reduce((s,d)=>s+d.amount,0);
-  document.getElementById('sv').textContent=fmt(v+dt);
-  document.getElementById('se').textContent=fmt(e+dt);
-  document.getElementById('sr').textContent=fmt(v-e);
-  document.getElementById('scnt').textContent=tOrd.length+' cmd · '+tOrd.filter(o=>o.paid).length+' payée(s) · '+tOrd.filter(o=>!o.paid).length+' en attente';
+  if(role==='patron'){
+    document.getElementById('sv').textContent=fmt(v+dt);
+    document.getElementById('se').textContent=fmt(e+dt);
+    document.getElementById('sr').textContent=fmt(v-e);
+    document.getElementById('sl-v').textContent='Vendu (F)';
+    document.getElementById('sl-e').textContent='Encaissé';
+    document.getElementById('sl-r').textContent='Restant';
+    document.getElementById('scnt').textContent=tOrd.length+' cmd · '+tOrd.filter(o=>o.paid).length+' payée(s) · '+tOrd.filter(o=>!o.paid).length+' en attente';
+  } else {
+    document.getElementById('sv').textContent=tOrd.length;
+    document.getElementById('se').textContent=tOrd.filter(o=>o.paid).length;
+    document.getElementById('sr').textContent=tOrd.filter(o=>!o.paid).length;
+    document.getElementById('sl-v').textContent='Commandes';
+    document.getElementById('sl-e').textContent='Payées';
+    document.getElementById('sl-r').textContent='En attente';
+    document.getElementById('scnt').textContent='Mes commandes du jour';
+  }
   const pend=tOrd.filter(o=>!o.paid);
   const pw=document.getElementById('pendwrap');
   if(pend.length){
@@ -428,7 +517,7 @@ function refHome(){
     document.getElementById('pendlist').innerHTML=pend.map(o=>`
       <div class="orow">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:700;color:var(--tx)"> ${o.table_num||'—'} · ${o.server}</div>
+          <div style="font-size:13px;font-weight:700;color:var(--tx)">${o.table_num||'—'} · ${o.server}</div>
           <div style="font-size:11px;color:var(--tx2);margin-top:2px">${(o.items||[]).map(i=>i.ic+' '+i.name+' ×'+i.qty).join(' · ')}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
@@ -443,8 +532,7 @@ function refHome(){
   document.getElementById('hnav').innerHTML=`
     <button class="nb on" onclick="go('s-home')"><span class="ni">🏠</span>Accueil</button>
     <button class="nb" onclick="goCmd()"><span class="ni">➕</span>Commande</button>
-    <button class="nb" onclick="go('s-orders')"><span class="ni">📋</span>Commandes</button>
-    ${role==='patron'?`<button class="nb" onclick="go('s-bilan')"><span class="ni">📊</span>Bilan</button>`:''}`;
+    ${role==='patron'?`<button class="nb" onclick="go('s-orders')"><span class="ni">📋</span>Commandes</button><button class="nb" onclick="go('s-bilan')"><span class="ni">📊</span>Bilan</button>`:''}`;
 }
 
 // CART
@@ -468,26 +556,14 @@ function rCart(){
 }
 function setPM(m){payMode=m;document.getElementById('pcash').classList.toggle('on',m==='cash');document.getElementById('pmomo').classList.toggle('on',m==='momo')}
 
-function toISO(d){
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-}
 async function submitOrder(){
   const srv=document.getElementById('isrv').value.trim();
   const tbl=document.getElementById('itbl').value.trim();
   if(!srv){toast('Entre ton nom !',true);return}
+  if(!tbl){toast('Choisis une table !',true);return}
   if(!cart.length){toast('Aucun plat sélectionné',true);return}
   const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  const o={
-    id:Date.now(),
-    server:srv,
-    table_num:tbl||'—',
-    items:cart.map(c=>({...c})),
-    total,
-    pay_mode:payMode,
-    paid:false,
-    order_date:td(),
-    order_date_iso:toISO(new Date())
-  };
+  const o={id:Date.now(),server:srv,table_num:tbl,items:cart.map(c=>({...c})),total,pay_mode:payMode,paid:false,order_date:td(),order_date_iso:toISO(new Date())};
   const btn=document.getElementById('bsubmit');
   btn.textContent='⏳ Envoi...';btn.disabled=true;
   try{
@@ -508,13 +584,22 @@ async function markPaid(id){
 
 function renderOrders(){
   const el=document.getElementById('orderbody');
-  if(!tOrd.length){el.innerHTML='<div class="card" style="text-align:center;padding:24px;color:var(--tx2);font-weight:700">Aucune commande aujourd\'hui</div>';return}
-  el.innerHTML=tOrd.map(o=>`
+  if(!tOrd.length && !tDel.length){el.innerHTML='<div class="card" style="text-align:center;padding:24px;color:var(--tx2);font-weight:700">Aucune commande aujourd\'hui</div>';return}
+  const delSection=tDel.length?`<div class="card" style="margin-bottom:2px"><div class="ct">🛵 Livraisons du jour</div>${tDel.map(d=>`
+    <div class="orow">
+      <div><div style="font-size:13px;font-weight:700;color:var(--tx)">${d.description||'Livraison'}</div>
+      <div style="font-size:11px;color:var(--tx2);margin-top:2px">🕐 ${d.delivery_time} · <span class="bdg ${d.mode==='momo'?'momo':'cashb'}">${d.mode==='momo'?'📱 MoMo':'💵 Cash'}</span></div></div>
+      <span style="font-size:15px;font-weight:800;color:var(--or)">${fmt(d.amount)} F</span>
+    </div>`).join('')}
+    <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding-top:8px;margin-top:4px;border-top:1px solid var(--bd)"><span>Total livraisons</span><span style="color:var(--or)">${fmt(tDel.reduce((s,d)=>s+d.amount,0))} F</span></div>
+  </div>`:'';
+  el.innerHTML=delSection+tOrd.map(o=>`
     <div class="orcard ${o.paid?'pc':'oc'}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
         <div>
-          <span style="font-size:14px;font-weight:800;color:var(--tx)">Table ${o.table_num}</span>
-          <span style="font-size:11px;color:var(--tx2);margin-left:8px;font-weight:700">${o.server} · ${o.order_date||''} ${o.order_time}</span>
+          <span style="font-size:14px;font-weight:800;color:var(--tx)">${o.table_num}</span>
+          <span style="font-size:11px;color:var(--tx2);margin-left:8px;font-weight:700">${o.server}</span>
+          <div style="font-size:10px;color:var(--tx2);margin-top:2px;font-weight:700">📅 ${o.order_date||''} · 🕐 ${o.order_time}</div>
         </div>
         <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">
           <span class="bdg ${o.paid?'paid':'open'}">${o.paid?'✓ Payé':'En attente'}</span>
@@ -527,18 +612,13 @@ function renderOrders(){
         <div style="display:flex;gap:6px">
           <button class="bdg cashb" style="cursor:pointer;border:none;padding:6px 12px;font-size:11px" onclick="openEdit(${o.id})">✏️ Modifier</button>
           ${role==='patron'&&!o.paid?`<button class="bdg paid" style="cursor:pointer;border:none;padding:6px 14px;font-size:11px" onclick="mpR(${o.id})">✓ Payé</button>`:''}
-          ${role==='patron'?`<button class="bdg open" style="cursor:pointer;border:none;padding:6px 12px;font-size:11px" onclick="confirmDelete(${o.id})">🗑 Supprimer</button>`:''}
+          ${role==='patron'?`<button class="bdg open" style="cursor:pointer;border:none;padding:6px 12px;font-size:11px" onclick="confirmDelete(${o.id})">🗑</button>`:''}
         </div>
       </div>
     </div>`).join('');
 }
 async function mpR(id){await markPaid(id);renderOrders()}
-
-function confirmDelete(id){
-  if(confirm('Supprimer cette commande ? Cette action est irréversible.')){
-    deleteOrder(id);
-  }
-}
+function confirmDelete(id){if(confirm('Supprimer cette commande ? Action irréversible.'))deleteOrder(id)}
 async function deleteOrder(id){
   try{
     await sb(`orders?id=eq.${id}`,{method:'DELETE',prefer:'return=minimal'});
@@ -551,12 +631,14 @@ function openEdit(id){
   const o=tOrd.find(x=>x.id===id);if(!o)return;
   editId=id;editCart=(o.items||[]).map(i=>({...i}));
   editPayMode=o.pay_mode||'cash';
-  document.getElementById('editinfo').textContent='Table '+o.table_num+' · '+o.server+' · '+o.order_time;
-  document.getElementById('edit-table').value=o.table_num||'Bénin';
+  document.getElementById('editinfo').textContent=o.table_num+' · '+o.server+' · '+o.order_time;
+  const sel=document.getElementById('edit-table');
+  sel.value=o.table_num||'';
   setEditPM(editPayMode);
   rEditCart();document.getElementById('editmodal').classList.add('on');
 }
 function closeEdit(){document.getElementById('editmodal').classList.remove('on');editId=null;editCart=[]}
+function setEditPM(m){editPayMode=m;document.getElementById('edit-cash').classList.toggle('on',m==='cash');document.getElementById('edit-momo').classList.toggle('on',m==='momo')}
 function eadd(id,name,ic,price){const ex=editCart.find(c=>c.id===id);ex?ex.qty++:editCart.push({id,name,ic,price,qty:1});rEditCart()}
 function echg(id,d){const ex=editCart.find(c=>c.id===id);if(ex){ex.qty+=d;if(ex.qty<=0)editCart=editCart.filter(c=>c.id!==id)}rEditCart()}
 function rEditCart(){
@@ -574,14 +656,6 @@ function rEditCart(){
         </div>
       </div>`).join('');
 }
-
-let editPayMode='cash';
-function setEditPM(m){
-  editPayMode=m;
-  document.getElementById('edit-cash').classList.toggle('on',m==='cash');
-  document.getElementById('edit-momo').classList.toggle('on',m==='momo');
-}
-
 async function saveEdit(){
   if(!editId)return;
   const total=editCart.reduce((s,c)=>s+c.price*c.qty,0);
@@ -591,12 +665,31 @@ async function saveEdit(){
     toast('Commande mise à jour ✓');closeEdit();await loadToday();renderOrders();
   }catch(e){toast('Erreur',true)}
 }
-  
+
 // BILAN
 async function setBP(p){
-  bPeriod=p;['day','week','month'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x===p));
+  bPeriod=p;
+  ['day','week','month','custom'].forEach(x=>document.getElementById('bt-'+x).classList.toggle('on',x===p));
+  const cr=document.getElementById('custom-range');
+  if(p==='custom'){
+    cr.style.display='flex';
+    // Set default dates
+    const now=new Date();
+    document.getElementById('date-to').value=toISO(now);
+    const from=new Date(now);from.setDate(from.getDate()-1);
+    document.getElementById('date-from').value=toISO(from);
+    return;
+  }
+  cr.style.display='none';
   document.getElementById('bilanbody').innerHTML='<div style="text-align:center;padding:30px"><div class="spin"></div></div>';
   await loadPeriod(p);renderBilan();
+}
+async function applyCustomRange(){
+  const f=document.getElementById('date-from').value;
+  const t=document.getElementById('date-to').value;
+  if(!f||!t){toast('Choisis les deux dates',true);return}
+  document.getElementById('bilanbody').innerHTML='<div style="text-align:center;padding:30px"><div class="spin"></div></div>';
+  await loadPeriod('custom',f,t);renderBilan();
 }
 function renderBilan(){
   const v=allOrd.reduce((s,o)=>s+o.total,0);
@@ -607,17 +700,14 @@ function renderBilan(){
   const dc=allDel.filter(d=>d.mode==='cash').reduce((s,d)=>s+d.amount,0);
   const dm=allDel.filter(d=>d.mode==='momo').reduce((s,d)=>s+d.amount,0);
   const srvs=[...new Set(allOrd.map(o=>o.server))];
-  const lbl=bPeriod==='day'?'aujourd\'hui':bPeriod==='week'?'ces 7 derniers jours':'ces 30 derniers jours';
-
-  const delH=allDel.length?`<div class="card">
-    <div class="ct">🛵 Livraisons</div>
+  const lbl=bPeriod==='day'?'aujourd\'hui':bPeriod==='week'?'ces 7 derniers jours':bPeriod==='month'?'ces 30 derniers jours':'la période sélectionnée';
+  const delH=allDel.length?`<div class="card"><div class="ct">🛵 Livraisons</div>
     ${allDel.map(d=>`<div class="orow"><div style="font-size:13px;font-weight:700;color:var(--tx)">${d.description||'Livraison'} <span style="font-size:10px;color:var(--tx2)">${d.delivery_date}</span></div>
     <div style="display:flex;align-items:center;gap:6px"><span class="bdg ${d.mode==='momo'?'momo':'cashb'}">${d.mode==='momo'?'📱':'💵'}</span>
     <span style="font-size:13px;font-weight:800;color:var(--or)">${fmt(d.amount)} F</span></div></div>`).join('')}
     <div class="div"></div>
     <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding-top:4px"><span>Total livraisons</span><span style="color:var(--or)">${fmt(dt)} F</span></div>
   </div>`:'';
-
   const srvH=!srvs.length?`<div style="font-size:13px;color:var(--tx2);text-align:center;padding:12px;font-weight:700">Aucune commande</div>`:
     srvs.map(srv=>{
       const so=allOrd.filter(o=>o.server===srv);
@@ -629,10 +719,8 @@ function renderBilan(){
         <div style="font-size:11px;color:var(--tx2);margin-top:2px;font-weight:700">${so.length} cmd · Encaissé: ${fmt(sp)} F ${mq>0?`<span style="color:var(--re)">· Manquant: ${fmt(mq)} F</span>`:'<span style="color:var(--gr)">· ✓ OK</span>'}</div>
       </div><span style="font-size:15px;font-weight:800;color:var(--or)">${fmt(st)} F</span></div>`;
     }).join('');
-
   document.getElementById('bilanbody').innerHTML=`
-    <div class="card">
-      <div class="ct">💰 Résultats ${lbl}</div>
+    <div class="card"><div class="ct">💰 Résultats ${lbl}</div>
       <div class="sg">
         <div class="sc"><div class="sn">${fmt(v+dt)}</div><div class="sl">Total vendu</div></div>
         <div class="sc gr"><div class="sn">${fmt(e+dt)}</div><div class="sl">Encaissé</div></div>
@@ -640,11 +728,10 @@ function renderBilan(){
       </div>
       <div style="margin-top:8px;font-size:11px;color:var(--tx2);text-align:center;font-weight:700">${allOrd.length} commande(s) · ${allOrd.filter(o=>o.paid).length} payée(s)</div>
     </div>
-    <div class="card">
-      <div class="ct">💳 Cash vs Mobile Money</div>
+    <div class="card"><div class="ct">💳 Cash vs Mobile Money</div>
       <div class="g2">
-        <div class="sc am"><div class="sn">${fmt(ce+dc)}</div><div class="sl">💵 Cash encaissé</div></div>
-        <div class="sc am"><div class="sn">${fmt(me+dm)}</div><div class="sl">📱 MoMo encaissé</div></div>
+        <div class="sc am"><div class="sn">${fmt(ce+dc)}</div><div class="sl">💵 Cash</div></div>
+        <div class="sc am"><div class="sn">${fmt(me+dm)}</div><div class="sl">📱 MoMo</div></div>
       </div>
     </div>
     ${delH}
@@ -661,15 +748,7 @@ async function submitDel(){
   const amt=parseInt(document.getElementById('delamount').value);
   if(!desc||isNaN(amt)||amt<=0){toast('Remplis tous les champs',true);return}
   try{
-    await sb('deliveries',{method:'POST',body:{
-      id:Date.now(),
-      description:desc,
-      amount:amt,
-      mode:delMode,
-      delivery_date:td(),
-      delivery_date_iso:toISO(new Date()),
-      delivery_time:tn()
-    },prefer:'return=minimal'});
+    await sb('deliveries',{method:'POST',body:{id:Date.now(),description:desc,amount:amt,mode:delMode,delivery_date:td(),delivery_date_iso:toISO(new Date()),delivery_time:tn()},prefer:'return=minimal'});
     closeDel();toast('Livraison ajoutée ✓');await loadToday();refHome();
   }catch(e){toast('Erreur',true)}
 }
